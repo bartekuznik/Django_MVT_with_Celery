@@ -19,8 +19,9 @@ To use the project's API, you must generate a Bearer Token and include it in the
 - **Django 6.0.2**
 - **Bootstrap 5.3.5**
 - **Django Crispy Forms 2.5**
-- **Django Rest Framework 3.14.0**
-- **Django Silk 5.3.2**
+- **Django Rest Framework 3.16.1**
+- **Django Rest Framework Simple Jwt 5.5.1**
+- **Django Silk 5.4.3**
 - **Crispy Bootstrap5 2025.6**
 - **Celery 5.6.2**
 
