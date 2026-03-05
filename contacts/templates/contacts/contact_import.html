@@ -1,0 +1,79 @@
+{% extends "contacts/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/cards.css' %}">
+
+<div class="container container__form d-flex flex-column justify-content-center align-items-center">
+
+    <!-- Return button --> 
+    <div class="back__button__wrapper" style="max-width: 60rem;">
+        <a href="{% url 'contact_list' %}" class="btn button__looks">← Contacts list</a>
+    </div>
+    
+
+    <div class="card card__form shadow" style="max-width: 60rem;">
+        <div class="card-header">
+            Import contacts from CSV
+        </div>
+        <div class="card-body">
+            <p class="import__info">Select a CSV file to import. Make sure the headers are correct.</p>
+            
+            <div class="import__headers">
+                Correct headers:
+                <pre class="import__headers__pre">first_name,last_name,phone_number,email,city,status</pre>
+            </div>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="impost__form">
+                    {{ form|crispy }}
+                   
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn button__looks">
+                        <i class="fas fa-upload"></i> Start importing
+                    </button>
+                    <a href="{% url 'contact_list' %}" class="btn button__looks">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel" style="color: red;">Import Errors</h5>
+            </div>
+            <div class="modal-body">
+                <ul style="color: red;">
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn button__looks" data-bs-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if errors %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var myModal = new bootstrap.Modal(document.getElementById('errorModal'));
+        myModal.show();
+    });
+</script>
+{% endif %}
+
+{% endblock %}

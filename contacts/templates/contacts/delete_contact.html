@@ -1,0 +1,30 @@
+{% extends "contacts/base.html" %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static "/css/cards.css" %}">
+
+
+<div class="container container__form d-flex flex-column justify-content-center align-items-center"">
+
+    <!-- Card with delete contact form -->
+    <div class="card card__form shadow">
+        <div class="card-body text-center">
+            <p class="card-title delete__card__title text-danger">Are you sure you want to delete this contact?</p>
+            <p class="card-text delete__card__text">„<strong>{{ contact }}</strong>” will be permanently deleted.</p>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="delete__card__buttons d-flex justify-content-between">
+
+                    <!--  Back to contact detail button -->
+                    <a href="{% url 'contact_detail' contact.pk %}" class="btn button__looks">Cancel</a>
+
+                    <!-- Submit form button -->
+                    <button type="submit" class="btn button__looks btn-danger">Yes, delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

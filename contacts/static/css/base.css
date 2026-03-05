@@ -1,0 +1,30 @@
+.container{
+    max-width: 1000px;
+}
+
+.navbar{
+    background-color: var(--clr-neutral-navy-900);
+}
+
+.navbar-brand{
+    font-size: var(--fs-700);
+}
+
+.nav-link{
+    font-size: var(--fs-500);
+}
+
+.button__looks{
+    font-size: var(--fs-400);
+    border-color: var(--bs-border-color);
+    --bs-btn-bg: var(--clr-neutral-navy-900);
+    --bs-btn-border-color: transparent;
+    --bs-btn-hover-bg: var(--bs-tertiary-bg);
+    --bs-btn-hover-border-color: transparent;  
+    --bs-btn-active-bg: var(--bs-tertiary-bg);
+    --bs-btn-active-border-color: var(--bs-border-color);
+    --bs-btn-focus-shadow-rgb: none; 
+    --bs-btn-color: #fff; 
+    --bs-btn-hover-color: var(--clr-neutral-navy-900); 
+    --bs-btn-active-color: var(--clr-neutral-navy-900);
+}

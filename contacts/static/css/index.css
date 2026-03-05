@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap');
+
+
+
+/*############### GENERAL ################*/
+html {
+    font-size: 62.5% !important;
+}
+
+:root{
+    /*############### Primary ################*/
+    --clr-primary-purple-600: hsl(246, 80%, 60%);
+    --clr-primary-purple-700: hsl(264, 64%, 52%); 
+
+    /*############### Neutral ################*/
+    --clr-neutral-navy-950: hsl(226, 43%, 10%);
+    --clr-neutral-navy-900: hsl(235, 46%, 20%);
+    --clr-neutral-navy-800: hsl(235, 40%, 30%); 
+    --clr-neutral-navy-700: hsl(235, 35%, 45%);
+    --clr-neutral-navy-600: hsl(235, 30%, 60%); 
+    --clr-neutral-purple-500: hsl(235, 45%, 61%);
+    --clr-neutral-navy-200: hsl(236, 100%, 87%);
+    
+
+    --fs-100: 1.2rem;
+    --fs-200: 1.3rem;
+    --fs-250: 1.4rem;
+    --fs-300: 1.5rem;
+    --fs-400: 1.8rem;
+    --fs-500: 2rem;
+    --fs-550: 2.2rem;
+    --fs-600: 2.5rem;
+    --fs-700: 3.1rem;
+    --fs-800: 3.5rem;
+    --fs-850: 3.8rem;
+    --fs-900: 4.9rem;
+    --fs-1000: 5.4rem;
+
+    --space-50: 0.25rem;
+    --space-100: 0.5rem;
+    --space-150: 0.8rem;
+    --space-200: 1rem;
+    --space-300: 1.5rem;
+    --space-350: 1.8rem;
+    --space-400: 2rem;
+    --space-500: 2.5rem;
+    --space-600: 3rem;
+    --space-700: 4rem;
+    --space-800: 5rem;
+    --space-900: 5.5rem;
+    --space-1000: 6rem;
+    --space-1100: 7rem;
+    --space-1200: 8rem;
+    --space-1300: 9rem;
+    --space-1500: 10rem;
+    --space-1600: 10rem;
+    --space-1800: 14rem;
+
+    /*############### Rubik ################*/
+    --ff-rubik: "Rubik", sans-serif;
+    --fw-rubik-light: 300;
+    --fw-rubik-regular: 400;
+    --fw-rubik-medium: 500;
+}
+
+
+/*############### END OF UTILITY ################*/
+
+body{
+  font-family: var(--ff-rubik);
+  font-size: var(--fs-400);
+  font-weight: var(--fw-rubik-regular);
+  background-color: var(--clr-neutral-navy-950);
+
+}

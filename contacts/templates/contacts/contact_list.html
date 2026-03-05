@@ -1,0 +1,169 @@
+{% extends "contacts/base.html" %}
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static "/css/contact_list.css" %}">
+
+
+<div class="container container__main">
+    <div class="list__menu d-flex justify-content-between align-items-center">
+        <!-- Sort side section -->
+        <div class="dropdown">
+          <button class="button__looks btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Sortuj:
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="?order=last_name">Nazwisko (A-Z)</a></li>
+            <li><a class="dropdown-item" href="?order=-last_name">Nazwisko (Z-A)</a></li>
+            <li><a class="dropdown-item" href="?order=created_at">Najstarsze</a></li>
+            <li><a class="dropdown-item" href="?order=-created_at">Najnowsze</a></li>
+          </ul>
+        </div>
+
+        
+        <!-- Pagination section -->
+        <div class="pagination__wrapper d-flex align-items-center ">
+            <ul class="pagination justify-content-center mb-0 ">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1{% if request.GET.order %}&order={{ request.GET.order }}{% endif %}" aria-label="First">
+                        <span aria-hidden="true">&laquo;&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.order %}&order={{ request.GET.order }}{% endif %}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled"><span class="page-link">&laquo;&laquo;</span></li>
+                <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                {% endif %}
+
+                <li class="page-item active">
+                    <span class="page-link">
+                        {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}
+                    </span>
+                </li>
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.order %}&order={{ request.GET.order }}{% endif %}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.order %}&order={{ request.GET.order }}{% endif %}" aria-label="Last">
+                        <span aria-hidden="true">&raquo;&raquo;</span>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                <li class="page-item disabled"><span class="page-link">&raquo;&raquo;</span></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    
+    <!-- ListView section -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for contact in contacts %}
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <strong>
+                        <div class="card-title text-center">{{ contact.first_name }} {{ contact.last_name }}</div>
+                    </strong>
+                    
+                    <div class="weather-icon text-center">
+                        {% if contact.weather.rain > 0.2 %}
+                            <i class="bi bi-cloud-drizzle-fill "></i>
+                        {% elif contact.weather.cloud_cover > 90 %}
+                            <i class="bi bi-cloud-fill " ></i>
+                        {% elif contact.weather.is_day == 0 %}
+                            <i class="bi bi-moon-stars-fill" ></i>
+                        {% else %}
+                            <i class="bi bi-brightness-high-fill " ></i>
+                        {% endif %}
+                    </div>
+
+                    <div class="d-flex justify-content-between text-center border-top border-secondary pt-3 mt-3">
+                        <div>
+                            <i class="bi bi-thermometer-half "></i>
+                            <div class="small">{{ contact.weather.temperature }} °C</div>
+                        </div>
+                        <div>
+                            <i class="bi bi-moisture "></i>
+                            <div class="small">{{ contact.weather.humidity }}%</div>
+                        </div>
+                        <div>
+                            <i class="bi bi-wind "></i>
+                            <div class="small">{{ contact.weather.windspeed }} km/h</div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between text-center border-top border-secondary pt-3 mt-3">
+                        <div class="d-flex justify-content-between text-center">
+                            <span class="badge rounded-pill bg-outline-info border">{{ contact.status }}</span>
+                        </div>
+                        <div class="card__owner">
+                            <small class="text-secondary">Owner: {{ contact.owner }}</small>
+                        </div>
+                    </div>
+
+                    <a href="{% url 'contact_detail' contact.id %}" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+
+    <!-- Pagination section -->
+    <div class="pagination__wrapper pagination__wrapper__lower d-flex align-items-center justify-content-center">
+        <ul class="pagination justify-content-center mb-0 bg-dark">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1{% if request.GET.order %}&order={{ request.GET.order }}{% endif %}" aria-label="First">
+                    <span aria-hidden="true">&laquo;&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.order %}&order={{ request.GET.order }}{% endif %}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">&laquo;&laquo;</span></li>
+            <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+            {% endif %}
+
+            <li class="page-item active">
+                <span class="page-link">
+                    {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}
+                </span>
+            </li>
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.order %}&order={{ request.GET.order }}{% endif %}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.order %}&order={{ request.GET.order }}{% endif %}" aria-label="Last">
+                    <span aria-hidden="true">&raquo;&raquo;</span>
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+            <li class="page-item disabled"><span class="page-link">&raquo;&raquo;</span></li>
+            {% endif %}
+        </ul>
+    </div>
+
+    
+</div>
+
+{% endblock %}
+

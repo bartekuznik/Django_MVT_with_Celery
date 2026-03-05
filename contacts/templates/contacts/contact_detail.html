@@ -1,0 +1,63 @@
+{% extends "contacts/base.html" %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/cards.css' %}">
+
+<div class="container container__form d-flex flex-column justify-content-center align-items-center" >
+
+    <!-- Return button --> 
+    <div class="back__button__wrapper" style="max-width: 60rem;">
+        <a href="{% url 'contact_list' %}" class="btn button__looks">← Contacts list</a>
+    </div>
+    
+    <!-- Card with contact details --> 
+    <div class="card card__form shadow" style="max-width: 60rem;">
+        <div class="card-header">
+            {{ contact.first_name }} {{ contact.last_name }}
+        </div>
+
+        <div class="card-body">
+            <ul class="list-group list-group-flush list-group__custom">
+                <li class="list-group-item d-flex align-items-center">
+                    <strong class="detail__label">Phone number:</strong>
+                    <div class="flex-grow-1 d-flex align-items-center">{{ contact.phone_number }}</div>
+                </li>
+                <li class="list-group-item d-flex align-items-center">
+                    <strong class="detail__label">Email:</strong>
+                    <div class="flex-grow-1 d-flex align-items-center">{{ contact.email }}</div>
+                </li>
+                <li class="list-group-item d-flex align-items-center">
+                    <strong class="detail__label">City:</strong>
+                    <div class="flex-grow-1 d-flex align-items-center">{{ contact.city }}</div>
+                </li>
+                <li class="list-group-item d-flex align-items-center">
+                    <strong class="detail__label">Status:</strong>
+                    <div class="flex-grow-1 d-flex align-items-center">{{ contact.status }}</div>
+                </li>
+                <li class="list-group-item d-flex align-items-center">
+                    <strong class="detail__label">Created at:</strong>
+                    <div class="flex-grow-1 d-flex align-items-center">{{ contact.created_at|date:"d.m.Y H:i" }}</div>
+                </li>
+            </ul>    
+        </div>
+
+        <!-- Edit and delete button --> 
+        <div class="card-footer d-flex justify-content-between">
+            {% if contact.owner == request.user %}
+            <a href="{% url 'contact_update' contact.id %}" class="btn button__looks">Edit contact</a>
+            <a href="{% url 'contact_delete' contact.id %}" class="btn button__looks">Delete contact</a>
+            {% else %}
+            
+            <form action="{% url 'contact_unsubscribe' contact.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn button__looks">Unshare</button>
+                
+            </form>
+            {% endif %} 
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
